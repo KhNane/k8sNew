@@ -1,0 +1,28 @@
+name: Simple Kubernetes Deploy
+
+on:
+  push:
+    branches: [main]  # or your branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v3
+
+    - name: Load kubeconfig
+      run: |
+        echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig.yaml
+        export KUBECONFIG=$PWD/kubeconfig.yaml
+
+    - name: Apply Kubernetes manifests
+      run: |
+        kubectl apply -f node-deployment.yaml
+        kubectl apply -f node-service.yaml
+        kubectl apply -f py-deployment.yaml
+        kubectl apply -f py-service.yaml
