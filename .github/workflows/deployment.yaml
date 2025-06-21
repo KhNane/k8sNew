@@ -18,7 +18,7 @@ jobs:
           export KUBECONFIG=$HOME/.kube/config
 
       - name: Deploy YAMLs to Kubernetes
-          run: kubectl apply -f .
+        run: kubectl apply -f .
 
       - name: Test cluster connection
-          run: kubectl get nodes
+        run: kubectl get nodes
