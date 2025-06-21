@@ -1,4 +1,4 @@
-name: Manual Deploy to Kubernetes
+name: Deployment1
 
 on:
   workflow_dispatch:
